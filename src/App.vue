@@ -12,11 +12,12 @@
 </script>
 
 <style scoped lang="scss">
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .content{
+
+  .content {
     margin-top: 80px;
     width: 1200px;
     min-height: 1400px;
