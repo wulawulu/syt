@@ -36,21 +36,22 @@ import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import type {Content, HospitalResponseData} from '@/api/home/type'
 // 分页器需要的数据
 import {ref, onMounted} from 'vue'
 // 分页器页码
 let pageNo = ref<number>(1);
 //一页展示几条数据
 let pageSize = ref<number>(10);
-let total = ref(0);
-let hasHospitalArr = ref([]);
+let total = ref<number>(0);
+let hasHospitalArr = ref<Content>([]);
 
 onMounted(() => {
   getHospitalInfo();
 })
 
 const getHospitalInfo = async () => {
-  let result: any = await reqHospital(pageNo.value, pageSize.value);
+  let result: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value);
   if (result.code == 200) {
     hasHospitalArr.value = result.data.content;
     total.value = result.data.totalElements;
