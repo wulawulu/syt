@@ -1,41 +1,33 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <div class="region">
     <div class="content">
       <div class="left">地区:</div>
       <ul class="hospital">
-        <li class="active">全部</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
-        <li>昌平区</li>
+        <li :class="{active:activeFlag==''}" @click="activeFlag=''">全部</li>
+        <li v-for="region in regionArr" :key="region.value" :class="{active:activeFlag==region.value}"
+            @click="activeFlag=region.value">{{ region.name }}</li>
       </ul>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import {onMounted, ref} from "vue";
+import {reqHospitalLevelAndRegion} from "@/api/home";
+import type {HospitalLevelAndRegionArr, HospitalLevelAndRegionResponseData} from "@/api/home/type.ts";
+
+let regionArr = ref<HospitalLevelAndRegionArr>([]);
+let activeFlag = ref<string>('');
+onMounted(() => {
+  getRegion()
+})
+const getRegion = async () => {
+  let result: HospitalLevelAndRegionResponseData = await reqHospitalLevelAndRegion('Beijin');
+  if (result.code == 200) {
+    regionArr.value = result.data;
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .region{
