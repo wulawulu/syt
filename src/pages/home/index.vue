@@ -10,15 +10,17 @@
         <Level/>
         <Region/>
         <div class="hospital">
-          <Card class="item" v-for="item in 10" :key="item"/>
+          <Card class="item" v-for="(item,index) in hasHospitalArr" :key="index" :hospitalInfo="item"/>
           <!-- 分页器 -->
           <el-pagination
               v-model:current-page="pageNo"
               v-model:page-size="pageSize"
               :page-sizes="[10, 20, 30, 40]"
               :background="true"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="13"
+              layout="prev, pager, next,jumper,->,sizes , total "
+              :total="total"
+              @current-change="currentChange"
+              @size-change="sizeChange"
           />
         </div>
       </el-col>
@@ -28,17 +30,40 @@
 </template>
 
 <script setup lang="ts">
+import {reqHospital} from '@/api/home'
 import Carousel from './carousel/index.vue'
 import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
 // 分页器需要的数据
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 // 分页器页码
 let pageNo = ref<number>(1);
 //一页展示几条数据
 let pageSize = ref<number>(10);
+let total = ref(0);
+let hasHospitalArr = ref([]);
+
+onMounted(() => {
+  getHospitalInfo();
+})
+
+const getHospitalInfo = async () => {
+  let result: any = await reqHospital(pageNo.value, pageSize.value);
+  if (result.code == 200) {
+    hasHospitalArr.value = result.data.content;
+    total.value = result.data.totalElements;
+  }
+};
+
+const currentChange = () => {
+  getHospitalInfo()
+};
+
+const sizeChange = () => {
+  getHospitalInfo()
+};
 </script>
 
 <style scoped lang="scss">
