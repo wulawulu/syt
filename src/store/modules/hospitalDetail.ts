@@ -1,11 +1,12 @@
 import {defineStore} from "pinia";
 import {reqHospitalDetail} from "@/api/hospital";
 import type {HospitalDetail} from "@/api/hospital/type.ts";
+import {DetailState} from "@/store/modules/interface";
 
 let useDetailStore = defineStore('Detail', {
-    state() {
+    state():DetailState {
         return {
-            hospitalInfo: {}
+            hospitalInfo: ({} as HospitalDetail)
         }
     },
     actions: {

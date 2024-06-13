@@ -6,7 +6,7 @@ export interface ResponseData {
 }
 
 //代表医院详情的数据
-export interface HosPitalDetail {
+export interface HospitalDetail {
     "bookingRule": {
         "cycle": number,
         "releaseTime": string,
@@ -41,5 +41,5 @@ export interface HosPitalDetail {
 
 //医院详情返回数据ts
 export interface HospitalDetail extends ResponseData {
-    data: HosPitalDetail
+    data: HospitalDetail
 }
