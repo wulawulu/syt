@@ -57,6 +57,10 @@ import {
   Search, HomeFilled,
 } from '@element-plus/icons-vue'
 import {useRoute, useRouter} from "vue-router";
+import useDetailStore from "@/store/modules/hospitalDetail.ts";
+import {onMounted} from "vue";
+
+let detailStore = useDetailStore();
 
 let $router = useRouter();
 let $route = useRoute();
@@ -64,6 +68,10 @@ let $route = useRoute();
 const changeActive = (path: string) => {
   $router.push({path})
 };
+
+onMounted(()=>{
+  detailStore.getHospital($route.query.hoscode);
+})
 </script>
 <style scoped lang="scss">
 .hospital {

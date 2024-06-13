@@ -36,7 +36,7 @@ const fetchData = async (keyword: string, cd: any) => {
 
 const goDetail = (item:any) => {
   console.log(item)
-  $router.push({path:'/hospital/register'})
+  $router.push({path:'/hospital/register',query: {hoscode:item.hoscode}})
 };
 </script>
 
