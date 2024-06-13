@@ -26,7 +26,9 @@
             @size-change="sizeChange"
         />
       </el-col>
-      <el-col :span="4">456</el-col>
+      <el-col :span="4">
+        <tip></tip>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -38,6 +40,7 @@ import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import Tip from './tip/index.vue'
 import type {Content, HospitalResponseData} from '@/api/home/type'
 // 分页器需要的数据
 import {ref, onMounted} from 'vue'
