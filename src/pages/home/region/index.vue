@@ -3,9 +3,9 @@
     <div class="content">
       <div class="left">地区:</div>
       <ul class="hospital">
-        <li :class="{active:activeFlag==''}" @click="activeFlag=''">全部</li>
+        <li :class="{active:activeFlag==''}" @click="changeRegion('')">全部</li>
         <li v-for="region in regionArr" :key="region.value" :class="{active:activeFlag==region.value}"
-            @click="activeFlag=region.value">{{ region.name }}</li>
+            @click="changeRegion(region.value)">{{ region.name }}</li>
       </ul>
     </div>
   </div>
@@ -27,6 +27,13 @@ const getRegion = async () => {
     regionArr.value = result.data;
   }
 }
+
+const changeRegion = (region: string) => {
+  activeFlag.value = region;
+  $emit('getRegion', region);
+};
+
+let $emit = defineEmits(['getRegion']);
 </script>
 
 <style scoped lang="scss">

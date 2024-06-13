@@ -31,7 +31,10 @@ const getLevel = async () => {
 }
 const changeLevel = (level: string) => {
   activeFlag.value = level;
+  $emit('getLevel', level);
 };
+
+let $emit = defineEmits(['getLevel']);
 </script>
 <style scoped lang="scss">
 .level {
